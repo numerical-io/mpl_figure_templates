@@ -5,7 +5,7 @@ import matplotlib.ticker as ticker
 import numpy as np
 import pandas as pd
 
-from figure_templates import make_figure, set_axis, style
+from figure_templates import make_figure, set_axis, style, set_axis_label
 
 plt.ioff()
 save_dir = Path(".").absolute()
@@ -33,7 +33,7 @@ with style("print"):
     set_axis(ax, "x", major_ticks=[0, 5, 10])
     set_axis(ax, "y", major_ticks=[0, 0.4], minor_ticks=[])
     fig.show()
-    fig.savefig(save_dir / "print_aside.png")
+    fig.savefig(save_dir / "print_aside.png", transparent=False)
 
 
 # Print aside, multiple
@@ -75,7 +75,7 @@ with style("print"):
     for ax in fig.axes:
         set_axis(ax, "x", major_ticks=[0, 3, 5, 10], minor_ticks=[])
 
-    fig.savefig(save_dir / "print_aside_multi.png")
+    fig.savefig(save_dir / "print_aside_multi.png", transparent=False)
 
 
 # Print textwidth
@@ -97,7 +97,7 @@ with style("print"):
     ax.set_xlabel("Latitude")
     ax.set_ylabel("Longitude")
 
-    fig.savefig(save_dir / "print_textwidth.png")
+    fig.savefig(save_dir / "print_textwidth.png", transparent=False)
 
 # Print fullwidth
 with style("print"):
@@ -133,7 +133,7 @@ with style("print"):
         ax.set_ylabel(f"Anscombe {n}")
     fig.axes[1].set_xlabel("Abscissa")
 
-    fig.savefig(save_dir / "print_fullwidth.png")
+    fig.savefig(save_dir / "print_fullwidth.png", transparent=False)
 
 
 # Slide fullwidth
@@ -170,7 +170,7 @@ with style("slide"):
         ax.set_ylabel(f"Anscombe {n}")
     fig.axes[-2].set_xlabel("Abscissa")
 
-    fig.savefig(save_dir / "slide_fullwidth_multi.png")
+    fig.savefig(save_dir / "slide_fullwidth_multi.png", transparent=False)
 
 
 # Slide fullwidth
@@ -192,7 +192,7 @@ with style("slide"):
     ax.set_xlabel("Latitude")
     ax.set_ylabel("Longitude")
 
-    fig.savefig(save_dir / "slide_fullwidth.png")
+    fig.savefig(save_dir / "slide_fullwidth.png", transparent=False)
 
 
 # Slide square
@@ -212,7 +212,7 @@ with style("slide"):
     ax.set_xlabel("Distance [m]")
     ax.set_ylabel("Speed [m/s]")
 
-    fig.savefig(save_dir / "slide_square.png")
+    fig.savefig(save_dir / "slide_square.png", transparent=False)
 
 
 # Print aside, multiple
@@ -239,7 +239,57 @@ with style("slide"):
     for ax in fig.axes:
         set_axis(ax, "x", major_ticks=[0, 3, 5, 10], minor_ticks=[])
 
-    fig.savefig(save_dir / "slide_square_multi.png")
+    fig.savefig(save_dir / "slide_square_multi.png", transparent=False)
 
+
+# Example of all label presets
+all_x_presets = ["center", "right"]
+padding_for_y_preset = {
+    "center": 0.75,
+    "side": 0.5,
+    "top": 1.75,
+    "above_left": 0.75,
+    "above_right": 0.75,
+    "above_center": 0.75,
+    "above_side": 0.5,
+    "above": 0.75,
+    "top_left": 1.5,
+    "top_right": 0.5,
+}
+all_y_presets = list(padding_for_y_preset.keys())
+
+with style("print"):
+    fig = make_figure(
+        "print_fullwidth", num_cols=5, num_rows=2, fig_width=45, fig_height=18, vsep=5
+    )
+
+    x = np.linspace(0, 10, 101)
+
+    for n, ax in enumerate(fig.axes):
+        mu, s2 = 3 + n * 0.4, 1.5 + 1.5 * n
+        ax.plot(
+            x,
+            np.exp(-((x - mu) ** 2) / (2 * s2)) / np.sqrt(2 * np.pi * s2),
+            color="#cccccc",
+        )
+        mu, s2 = 2 + n * 0.6, 2.5 - 0.15 * n
+        ax.plot(
+            x,
+            np.exp(-((x - mu) ** 2) / (2 * s2)) / np.sqrt(2 * np.pi * s2),
+            color="r",
+        )
+
+        set_axis(ax, "x", major_ticks=[0, 5, 10])
+        set_axis(ax, "y", major_ticks=[0, 0.4], minor_ticks=[])
+
+        # Choose and apply x-axis and y-axis label presets
+        x_preset = all_x_presets[n // 5]
+        y_preset = all_y_presets[n]
+        set_axis_label(ax, "x", f"x {x_preset}", x_preset, 1.75)
+        set_axis_label(
+            ax, "y", f"y {y_preset}", y_preset, padding_for_y_preset[y_preset]
+        )
+
+    fig.savefig(save_dir / "label_positions.png", transparent=False)
 
 plt.close("all")

@@ -86,17 +86,16 @@ Alternatively, create a `figure_templates.layouts.Layout` object and use it as t
 
 ## Samples
 
-See the `samples` directory for examples of usage.
+See the `samples` directory in the GitHub repository for examples of usage, with the default templates.
 
-Using the default template `print_fullwidth`:
+The package lets control axis ticks and relocate axis labels with minimal boilerplate:
 
-<img src="samples/print_fullwidth.png" alt="Sample print_fullwidth" style="width:800px; height:auto;">
+<img src="https://raw.githubusercontent.com/numerical-io/mpl_figure_templates/refs/heads/main/samples/print_aside.png" alt="Example print_aside" style="width:320px; height:auto;">
 
-Using the default template `print_aside`:
+The provided templates are designed to create consistent figure layouts with minimal visual clutter.
 
-<img src="samples/print_aside.png" alt="Sample print_aside" style="width:400px; height:auto;">
+<img src="https://raw.githubusercontent.com/numerical-io/mpl_figure_templates/refs/heads/main/samples/print_fullwidth.png" alt="Example print_fullwidth" style="width:800px; height:auto;">
 
+A number of presets are provided to relocate x-axis and y-axis labels in various positions :
 
-Using the default template `slide_square`:
-
-<img src="samples/slide_square.png" alt="Sample slide_square" style="width:400px; height:auto;">
+<img src="https://raw.githubusercontent.com/numerical-io/mpl_figure_templates/refs/heads/main/samples/label_positions.png" alt="Examples of label positions" style="width:1000px; height:auto;">
