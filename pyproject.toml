@@ -5,7 +5,7 @@ description = "Templates for customizing layouts and styles of Matplotlib figure
 readme = "README.md"
 license = "MIT"
 keywords = []
-dependencies = ["matplotlib>=2.0.0", "pyyaml>=3.13", "python-dotenv>0.10.1"]
+dependencies = ["matplotlib>=2.0.0", "pyyaml>=3.13", "python-dotenv>0.10.1", "platformdirs>=2.0.0"]
 requires-python = ">=3.9,<4"
 
 [project.urls]
